@@ -6,7 +6,7 @@ import google.generativeai as genai
 from datetime import datetime
 
 st.set_page_config(page_title="LV 名片戰情系統 v3.3-AI", layout="wide")
-
+st.write("--- 偵測點 1：系統開始啟動 ---")
 # Firebase 初始化
 if not firebase_admin._apps:
     try:
