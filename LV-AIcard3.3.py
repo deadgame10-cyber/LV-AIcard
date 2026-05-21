@@ -4,17 +4,17 @@ import firebase_admin
 from firebase_admin import credentials, firestore
 import google.generativeai as genai
 from datetime import datetime
+
 st.set_page_config(page_title="LV 名片戰情系統 v3.3-AI", layout="wide")
+
+# Firebase 初始化
 if not firebase_admin._apps:
-    service_account_info = json.loads(st.secrets["FIREBASE_SERVICE_ACCOUNT"])
-    cred = credentials.Certificate(service_account_info)
-    firebase_admin.initialize_app(cred)
-db = firestore.client(database_id="default")
-if "GEMINI_API_KEY" in st.secrets:
-genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
-model = genai.GenerativeModel('gemini-pro')
-else:
-st.error("API Key Missing")
+    try:
+        service_account_info = json.loads(st.secrets["FIREBASE_SERVICE_ACCOUNT"])
+        cred = credentials.Certificate(service_account_info)
+        firebase_admin.initialize_app(cred)
+    except Exception as e:
+        st.error(f"Firebase 初始化失敗: {str(e)}")
 
 db = firestore.client(database_id="default")
 
@@ -23,9 +23,8 @@ if "GEMINI_API_KEY" in st.secrets:
     genai.configure(api_key=st.secrets["GEMINI_API_KEY"])
     model = genai.GenerativeModel('gemini-pro')
 else:
-    st.error("●【核心安全提示】未找到有效的 GEMINI_API_KEY！")
+    st.error("【核心安全提示】找不到有效的 GEMINI_API_KEY！")
     model = None
-
 # --- 功能函數 ---
 def get_user_usage(user_id):
     today = datetime.now().strftime("%Y-%m-%d")
