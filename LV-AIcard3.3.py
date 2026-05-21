@@ -8,14 +8,14 @@ import google.generativeai as genai
 st.set_page_config(page_title="LV 名片戰情系統 v3.3-AI", layout="wide")
 
 # Firebase 初始化
-KEY_PATH = "serviceAccountKey.json"
+import json GEMINI_API_KEY = "AIzaSyDIMuBuGWEVr8gPR1G7vGZWfnuIQTNEW1U"
 if not firebase_admin._apps:
     try:
-        cred = credentials.Certificate(KEY_PATH)
-        firebase_admin.initialize_app(cred, {'projectId': 'goodgamelv8888'})
-    except Exception as e:
-        st.error(f"Firebase 初始化失敗: {str(e)}")
-
+       service_account_info = json.loads(st.secrets["FIREBASE_SERVICE_ACCOUNT"])
+        cred = credentials.Certificate(service_account_info)
+    firebase_admin.initialize_app(cred)
+        except Exception as e:
+st.error(f"Firebase 初始化失敗: {str(e)}")
 db = firestore.client(database_id="default")
 
 # --- 安全讀取金鑰 ---
