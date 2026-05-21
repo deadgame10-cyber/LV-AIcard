@@ -1,21 +1,21 @@
 import streamlit as st
+import json
 import firebase_admin
 from firebase_admin import credentials, firestore
-from datetime import datetime
 import google.generativeai as genai
+from datetime import datetime
 
-# --- 初始化設定 ---
 st.set_page_config(page_title="LV 名片戰情系統 v3.3-AI", layout="wide")
 
 # Firebase 初始化
-import json GEMINI_API_KEY = "AIzaSyDIMuBuGWEVr8gPR1G7vGZWfnuIQTNEW1U"
 if not firebase_admin._apps:
-    try:
-       service_account_info = json.loads(st.secrets["FIREBASE_SERVICE_ACCOUNT"])
-        cred = credentials.Certificate(service_account_info)
-    firebase_admin.initialize_app(cred)
-        except Exception as e:
-st.error(f"Firebase 初始化失敗: {str(e)}")
+try:
+   service_account_info = json.loads(st.secrets["FIREBASE_SERVICE_ACCOUNT"])
+       cred = credentials.Certificate(service_account_info)
+        firebase_admin.initialize_app(cred)
+    except Exception as e:
+        st.error(f"Firebase 初始化失敗: {str(e)}")
+
 db = firestore.client(database_id="default")
 
 # --- 安全讀取金鑰 ---
