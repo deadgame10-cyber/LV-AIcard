@@ -39,7 +39,7 @@ def get_user_usage(user_id):
             return 0, data.get("is_vip", False)
     else:
         user_ref.set({"usage_count": 0, "last_active_date": today, "is_vip": False})
-        return 0, False
+       
 
 USER_ID = "test_user_001"
 usage_count, is_vip = get_user_usage(USER_ID)
