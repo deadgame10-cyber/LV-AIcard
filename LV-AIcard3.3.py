@@ -29,7 +29,7 @@ else:
 def get_user_usage(user_id):
     today = datetime.now().strftime("%Y-%m-%d")
     user_ref = db.collection("users").document(user_id)
-    doc = user_ref.get()
+    doc = user_ref.get(timeout=30)
     if doc.exists:
         data = doc.to_dict()
         if data.get("last_active_date") == today:
