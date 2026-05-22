@@ -6,7 +6,7 @@ import google.generativeai as genai
 from datetime import datetime
 
 st.set_page_config(page_title="LV 名片戰情系統 v3.3-AI", layout="wide")
-st.write("--- 偵測點 1：系統開始啟動 ---")
+
 # Firebase 初始化
 if not firebase_admin._apps:
     try:
@@ -26,7 +26,7 @@ else:
     st.error("【核心安全提示】找不到有效的 GEMINI_API_KEY！")
     model = None
 # --- 功能函數 ---
-def get_user_usage(user_id):
+st.write("--- 偵測點 2：Firebase 初始化完成，準備載入介面 ---")
     today = datetime.now().strftime("%Y-%m-%d")
     user_ref = db.collection("users").document(user_id)
     doc = user_ref.get()
