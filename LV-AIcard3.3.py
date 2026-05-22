@@ -26,7 +26,7 @@ else:
     st.error("【核心安全提示】找不到有效的 GEMINI_API_KEY！")
     model = None
 # --- 功能函數 ---
-st.write("--- 偵測點 2：Firebase 初始化完成，準備載入介面 ---")
+def get_user_usage(user_id):
     today = datetime.now().strftime("%Y-%m-%d")
     user_ref = db.collection("users").document(user_id)
     doc = user_ref.get()
